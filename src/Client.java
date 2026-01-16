@@ -1,10 +1,11 @@
 public class Client extends Person {
-    private int numroClient;
+    protected int numroClient;
 
     public Client(String name, int numroClient) {
         super(name);
         this.numroClient = numroClient;
     }
+
 
     public int getNumroClient(){
         return numroClient;
@@ -13,6 +14,8 @@ public class Client extends Person {
     public void setNumroClient(int numroClient){
         this.numroClient = numroClient;
     }
+
+
 
 
 }

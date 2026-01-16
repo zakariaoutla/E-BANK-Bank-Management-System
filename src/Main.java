@@ -3,11 +3,11 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner choiceInput = new Scanner(System.in);
-
+        Scanner Input = new Scanner(System.in);
+         Bank bank = new Bank("cih");
         int choice = 0;
-       try{
 
+       try{
 
         do{
             System.out.println("Menu E-BANK");
@@ -22,17 +22,20 @@ public class Main {
 
 
             System.out.println("Entre choice: ");
-            choice = choiceInput.nextInt();
+            choice = Input.nextInt();
 
             switch (choice){
                 case 1:
                     System.out.println("======Ajoute un client======");
+                    bank.addClient(Input);
                     break;
                 case 2:
                     System.out.println("======Créér un compte======");
+                    bank.creatAccount(Input);
                     break;
                 case 3:
                     System.out.println("======Affiche les comptes======");
+                    bank.showAccount();
                     break;
                 case 4:
                     System.out.println("======Consulte le sold======");
@@ -54,7 +57,8 @@ public class Main {
 
         }while (choice !=0);
        }catch (InputMismatchException e){
-           System.out.println("Invalid inpute");
+           System.out.println("Invalid input");
        }
+       Input.nextLine();
     }
 }
