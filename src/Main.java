@@ -52,6 +52,7 @@ public class Main {
                     break;
                 case 7:
                     System.out.println("=====Supprime un compte=====");
+                    bank.supprimeCompte(Input);
                     break;
                 case 0:
                     break;

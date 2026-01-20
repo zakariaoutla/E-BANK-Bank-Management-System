@@ -71,14 +71,22 @@ public class Bank {
 
 
    public void showAccount(){
-       for (Account a : accounts){
-           System.out.println("==============================================");
-           System.out.println("name: "+ a.getClient().getName());
-           System.out.println("Number account: "+ a.getNumberCompte());
-           System.out.println("sold: " + a.getBalance()+ " DH");
-           System.out.println("==============================================");
+       if (accounts.size()>0){
+           for (Account a : accounts){
+               System.out.println("==============================================");
+               System.out.println("name: "+ a.getClient().getName());
+               System.out.println("Number account: "+ a.getNumberCompte());
+               System.out.println("sold: " + a.getBalance()+ " DH");
+               System.out.println("==============================================");
 
+           }
+
+       }else {
+           System.out.println("==============================================");
+           System.out.println("Aucun compte");
+           System.out.println("==============================================");
        }
+
    }
 
    public void ConsulteSold(Scanner Input) {
@@ -158,6 +166,18 @@ public class Bank {
        }
        if (!retireSold){
            System.out.println("Ce compte n'existe pas");
+       }
+   }
+
+   public void supprimeCompte(Scanner Input){
+       System.out.println("Entre Numéro de compte: ");
+       int suppCompte = Input.nextInt();
+       for (int i=0; i< accounts.size(); i++){
+           if (accounts.get(i).getNumberCompte() == suppCompte){
+               accounts.remove(i);
+               System.out.println("Le compte a ensuite été supprimé avec succés");
+               break;
+           }
        }
    }
 
