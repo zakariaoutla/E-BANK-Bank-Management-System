@@ -23,6 +23,7 @@ public class Main {
 
             System.out.println("Entre choice: ");
             choice = Input.nextInt();
+            Input.nextLine();
 
             switch (choice){
                 case 1:
@@ -39,12 +40,15 @@ public class Main {
                     break;
                 case 4:
                     System.out.println("======Consulte le sold======");
+                    bank.ConsulteSold(Input);
                     break;
                 case 5:
                     System.out.println("======Déposer de l'argent======");
+                    bank.deposeSold(Input);
                     break;
                 case 6:
                     System.out.println("=====Retirer de l'argent=====");
+                    bank.retirerSold(Input);
                     break;
                 case 7:
                     System.out.println("=====Supprime un compte=====");
@@ -52,7 +56,7 @@ public class Main {
                 case 0:
                     break;
                 default:
-                    System.out.println("======Entre valid choice======");
+                    System.out.println("Entre valid choice!");
             }
 
         }while (choice !=0);

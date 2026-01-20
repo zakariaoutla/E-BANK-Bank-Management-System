@@ -6,7 +6,6 @@ public class Client extends Person {
         this.numroClient = numroClient;
     }
 
-
     public int getNumroClient(){
         return numroClient;
     }
@@ -15,7 +14,11 @@ public class Client extends Person {
         this.numroClient = numroClient;
     }
 
-
-
-
+    @Override
+    public String toString() {
+        return "Client{" +
+                "numroClient=" + getNumroClient() +
+                ", name='" + getName() + '\'' +
+                '}';
+    }
 }

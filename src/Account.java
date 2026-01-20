@@ -27,6 +27,14 @@ public class Account {
         this.balance = balance;
     }
 
+    public void depose(double amount){
+        this.balance += amount;
+    }
+
+    public void retirer(double amount){
+        this.balance -= amount;
+    }
+
     public Client getClient() {
         return client;
     }
@@ -38,8 +46,9 @@ public class Account {
     @Override
     public String toString() {
         return "Account{" +
-                "numberCompte=" + numberCompte +
-                ", balance=" + balance +
+                "numberCompte=" + getNumberCompte() +
+                ", balance=" + getBalance() +
+                ", client=" + getClient() +
                 '}';
     }
 }
