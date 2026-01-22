@@ -6,180 +6,191 @@ public class Bank {
     ArrayList<Client> clients = new ArrayList<>();
     ArrayList<Account> accounts = new ArrayList<>();
 
-   public Bank(String nameBank){
-
-       this.nameBank = nameBank;
-   }
-
-    public String getNameBank() {
-        return nameBank;
-    }
-
-    public void setNameBank(String nameBank) {
+    public Bank(String nameBank) {
         this.nameBank = nameBank;
     }
 
-    public void addClient(Scanner Input){
-       System.out.println("Entre name: ");
-       String name = Input.nextLine();
-       System.out.println("Entre Numéro de client: ");
-       int numroClient = Input.nextInt();
 
-       Client c = new Client(name, numroClient);
-       clients.add(c);
-       System.out.println("Le client a été ajouté avec succés");
+    private Client findClient(int clientNumber) {
+        for (Client c : clients) {
+            if (c.getNumroClient() == clientNumber) {
+                return c;
+            }
+        }
+        return null;
+    }
 
-   }
-
-   public void creatAccount(Scanner Input){
-       int numberCompte;
-       double balance;
-       Client client = null;
-       boolean findAccount = false;
-       System.out.println("Entre Numéro de client: ");
-       int n = Input.nextInt();
-       for(Client c : clients){
-           if(n == c.getNumroClient()){
-               client = c;
-               break;
-           }
-       }
-       if (client == null){
-           System.out.println("Ce client n'existe pas");
-           return;
-       }
-       System.out.println("Entre Numéro de compte: ");
-       numberCompte = Input.nextInt();
-       for(Account acc: accounts){
-           if(numberCompte == acc.getNumberCompte()){
-               findAccount = true;
-               break;
-           }
-       }
-
-       if(findAccount){
-           System.out.println("Ce compte existe déja");
-           return;
-       }
-       System.out.println("Entre Solde initial: ");
-       balance = Input.nextDouble();
-       Input.nextLine();
-       Account a = new Account(numberCompte, balance,client);
-       accounts.add(a);
-       System.out.println("Le Account a été Créer avec succés");
-   }
+    private Account findAccount(int accountNumber) {
+        for (Account acc : accounts) {
+            if (acc.getNumberCompte() == accountNumber) {
+                return acc;
+            }
+        }
+        return null;
+    }
 
 
-   public void showAccount(){
-       if (accounts.size()>0){
-           for (Account a : accounts){
-               System.out.println("==============================================");
-               System.out.println("name: "+ a.getClient().getName());
-               System.out.println("Number account: "+ a.getNumberCompte());
-               System.out.println("sold: " + a.getBalance()+ " DH");
-               System.out.println("==============================================");
 
-           }
+    public void addClient(Scanner Input) {
+        System.out.println("Entre name: ");
+        String name = Input.nextLine();
+        System.out.println("Entre Numéro de client: ");
+        int numroClient = Input.nextInt();
 
-       }else {
-           System.out.println("==============================================");
-           System.out.println("Aucun compte");
-           System.out.println("==============================================");
-       }
+        Client c = new Client(name, numroClient);
+        clients.add(c);
+        System.out.println("Le client a été ajouté avec succès");
+    }
 
-   }
+    public void creatAccount(Scanner Input) {
+        System.out.println("Entre Numéro de client: ");
+        int n = Input.nextInt();
 
-   public void ConsulteSold(Scanner Input) {
-       boolean soldCon = false;
-       System.out.println("Entre Numéro de compte: ");
-       int cs = Input.nextInt();
-       Input.nextLine();
-       for (Account acc : accounts) {
-           if (cs == acc.getNumberCompte()) {
-               soldCon = true;
-               break;
-           }
+        Client client = findClient(n);
+        if (client == null) {
+            System.out.println("Ce client n'existe pas");
+            return;
+        }
 
-       }
+        System.out.println("Entre Numéro de compte: ");
+        int numberCompte = Input.nextInt();
 
-       for (Account account : accounts){
-           if (soldCon){
-               System.out.println("================== Sold ========================");
-               System.out.println("Number compte: " + account.getNumberCompte());
-               System.out.println("Balance compte: " + account.getBalance());
-               System.out.println("==============================================");
-           }
+        if (findAccount(numberCompte) != null) {
+            System.out.println("Ce compte existe déjà");
+            return;
+        }
 
-       }
-       if (!soldCon){
-           System.out.println("Ce compte n'existe pas");
-       }
-   }
+        System.out.println("Entre Solde initial: ");
+        double balance = Input.nextDouble();
 
-   public void deposeSold(Scanner Input){
-       boolean depoSold = false;
-       System.out.println("Entre Numéro de compte: ");
-       double depSold = Input.nextDouble();
-       for (Account acc : accounts){
-           if(depSold == acc.getNumberCompte()){
-               depoSold = true;
-               break;
-           }
-       }
-       for (Account account: accounts){
-           if (depoSold){
-               System.out.println("Entrez le montant que vous souhaitez déposer : ");
-               double newSold = Input.nextDouble();
-               if (newSold <=0){
-                   System.out.println("Impossible d'entrer un montant négatif");
-               }else {
-                   account.depose(newSold);
-               }
-           }
-       }
-       if (!depoSold){
-           System.out.println("Ce compte n'existe pas");
-       }
+        Account a = new Account(numberCompte, balance, client);
+        accounts.add(a);
+        System.out.println("Le compte a été créé avec succès");
+    }
 
-   }
+    public void showAccount() {
+        if (accounts.isEmpty()) {
+            System.out.println("Aucun compte");
+        } else {
+            for (Account a : accounts) {
+                System.out.println("==============================================");
+                System.out.println("Name: " + a.getClient().getName());
+                System.out.println("Number account: " + a.getNumberCompte());
+                System.out.println("Solde: " + a.getBalance() + " DH");
+                System.out.println("==============================================");
+            }
+        }
+    }
 
-   public void retirerSold(Scanner Input){
-       boolean retireSold = false;
-       System.out.println("Entre Numéro de compte: ");
-       double depSold = Input.nextDouble();
-       for (Account acc : accounts){
-           if(depSold == acc.getNumberCompte()){
-               retireSold = true;
-               break;
-           }
-       }
-       for (Account account: accounts){
-           if (retireSold){
-               System.out.println("Entrez le montant que vous souhaitez retirer : ");
-               double newSold = Input.nextDouble();
-               if (newSold<= account.getBalance()){
-                   account.retirer(newSold);
-               }else {
-                   System.out.println("Sold insuffisant pour effectuer le retrait.");
-               }
-           }
-       }
-       if (!retireSold){
-           System.out.println("Ce compte n'existe pas");
-       }
-   }
+    public void ConsulteSold(Scanner Input) {
+        System.out.println("Entre Numéro de compte: ");
+        int cs = Input.nextInt();
 
-   public void supprimeCompte(Scanner Input){
-       System.out.println("Entre Numéro de compte: ");
-       int suppCompte = Input.nextInt();
-       for (int i=0; i< accounts.size(); i++){
-           if (accounts.get(i).getNumberCompte() == suppCompte){
-               accounts.remove(i);
-               System.out.println("Le compte a ensuite été supprimé avec succés");
-               break;
-           }
-       }
-   }
+        Account acc = findAccount(cs);
+
+        if (acc != null) {
+            System.out.println("================== Sold ========================");
+            System.out.println("Number compte: " + acc.getNumberCompte());
+            System.out.println("Balance compte: " + acc.getBalance());
+            System.out.println("==============================================");
+        } else {
+            System.out.println("Ce compte n'existe pas");
+        }
+    }
+
+    public void deposeSold(Scanner Input) {
+        System.out.println("Entre Numéro de compte: ");
+        int depSold = Input.nextInt();
+
+        Account acc = findAccount(depSold);
+
+        if (acc != null) {
+            System.out.println("Entrez le montant que vous souhaitez déposer : ");
+            double amount = Input.nextDouble();
+            if (amount <= 0) {
+                System.out.println("Impossible d'entrer un montant négatif");
+            } else {
+                acc.depose(amount);
+                System.out.println("Le solde a été ajouté avec succès");
+            }
+        } else {
+            System.out.println("Ce compte n'existe pas");
+        }
+    }
+
+    public void retirerSold(Scanner Input) {
+        System.out.println("Entre Numéro de compte: ");
+        int num = Input.nextInt();
+
+        Account acc = findAccount(num);
+
+        if (acc != null) {
+            System.out.println("Entrez le montant que vous souhaitez retirer : ");
+            double amount = Input.nextDouble();
+            if (amount <= acc.getBalance()) {
+                acc.retirer(amount); // تأكد بلي عندك ميثود سميتها retirer فكلاس Account
+                System.out.println("Le solde a été retiré avec succès");
+            } else {
+                System.out.println("Solde insuffisant.");
+            }
+        } else {
+            System.out.println("Ce compte n'existe pas");
+        }
+    }
+
+    public void supprimeCompte(Scanner Input) {
+        System.out.println("Entre Numéro de compte: ");
+        int num = Input.nextInt();
+
+        Account acc = findAccount(num);
+
+        if (acc != null) {
+            accounts.remove(acc);
+            System.out.println("Le compte a été supprimé avec succès");
+        } else {
+            System.out.println("Ce compte n'existe pas");
+        }
+    }
+
+
+    public void transfertArgent(Scanner Input){
+        System.out.println("Entre Numéro de compte: ");
+        int ta = Input.nextInt();
+        Account trAcc = findAccount(ta);
+
+        if(trAcc !=null ){
+            System.out.println("Entre le compte destinataire: ");
+            int cd = Input.nextInt();
+            Account rvAcc = findAccount(cd);
+            if(trAcc.getNumberCompte() == rvAcc.getNumberCompte()){
+                System.out.println("Le même compte ne peut pas être envoyé");
+            }
+            System.out.println("Entre sold: ");
+            double trsold = Input.nextDouble();
+            if (trsold<=0){
+                System.out.println("Impossible d'entrer un montant négatif");
+            }else if(trAcc.getBalance()<trsold){
+                System.out.println("sold insuffisant");
+            }else {
+                trAcc.retirer(trsold);
+                rvAcc.depose(trsold);
+                System.out.println("Numéro de compte: " + trAcc.getNumberCompte());
+                System.out.println("New Balance : " + trAcc.getBalance());
+            }
+
+
+
+        }else {
+            System.out.println("manjhatch 3amalya");
+        }
+
+    }
+
+
+
+
+
+
 
 
 
@@ -187,7 +198,9 @@ public class Bank {
     @Override
     public String toString() {
         return "Bank{" +
-                "name='" + nameBank + '\'' +
+                "nameBank='" + nameBank + '\'' +
+                ", clients=" + clients +
+                ", accounts=" + accounts +
                 '}';
     }
 }

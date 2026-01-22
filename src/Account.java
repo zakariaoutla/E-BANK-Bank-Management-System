@@ -1,7 +1,7 @@
 public class Account {
-    protected int numberCompte;
-    protected double balance;
-    Client client;
+    private int numberCompte;
+    private double balance;
+    private Client client;
 
     public Account(int numberCompte, double balance, Client client){
         this.numberCompte = numberCompte;

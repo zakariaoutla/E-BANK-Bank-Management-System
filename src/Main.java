@@ -7,9 +7,8 @@ public class Main {
          Bank bank = new Bank("cih");
         int choice = 0;
 
-       try{
-
         do{
+           try{
             System.out.println("Menu E-BANK");
             System.out.println("1.Ajoute un client");
             System.out.println("2.Créér un compte");
@@ -17,7 +16,8 @@ public class Main {
             System.out.println("4.Consulte le sold");
             System.out.println("5.Déposer de l'argent");
             System.out.println("6.Retirer de l'argent");
-            System.out.println("7.Supprime un compte");
+            System.out.println("7.Transfert d’argent");
+            System.out.println("8.Supprime un compte");
             System.out.println("0.Quittez");
 
 
@@ -51,6 +51,10 @@ public class Main {
                     bank.retirerSold(Input);
                     break;
                 case 7:
+                    System.out.println("=====Transfert d’argent entre comptes=====");
+                    bank.transfertArgent(Input);
+                    break;
+                case 8:
                     System.out.println("=====Supprime un compte=====");
                     bank.supprimeCompte(Input);
                     break;
@@ -59,11 +63,17 @@ public class Main {
                 default:
                     System.out.println("Entre valid choice!");
             }
-
-        }while (choice !=0);
-       }catch (InputMismatchException e){
+           }catch (InputMismatchException e){
            System.out.println("Invalid input");
+           Input.nextLine();
        }
-       Input.nextLine();
+        }while (choice !=0);
+
+
+
+
+
     }
+
+
 }

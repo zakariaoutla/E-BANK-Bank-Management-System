@@ -1,5 +1,5 @@
 public class Client extends Person {
-    protected int numroClient;
+    private int numroClient;
 
     public Client(String name, int numroClient) {
         super(name);
