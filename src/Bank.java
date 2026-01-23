@@ -62,15 +62,22 @@ public class Bank {
 
         System.out.println("Entre Solde initial: ");
         double balance = Input.nextDouble();
+        if (balance<=0){
+            System.out.println("Vous avez entre un solde Negative !");
+        }else {
+            Account a = new Account(numberCompte, balance, client);
+            accounts.add(a);
+            System.out.println("Le compte a été créé avec succès");
+        }
 
-        Account a = new Account(numberCompte, balance, client);
-        accounts.add(a);
-        System.out.println("Le compte a été créé avec succès");
+
     }
 
     public void showAccount() {
         if (accounts.isEmpty()) {
+            System.out.println("==============================================");
             System.out.println("Aucun compte");
+            System.out.println("==============================================");
         } else {
             for (Account a : accounts) {
                 System.out.println("==============================================");
@@ -127,11 +134,14 @@ public class Bank {
         if (acc != null) {
             System.out.println("Entrez le montant que vous souhaitez retirer : ");
             double amount = Input.nextDouble();
-            if (amount <= acc.getBalance()) {
-                acc.retirer(amount); // تأكد بلي عندك ميثود سميتها retirer فكلاس Account
-                System.out.println("Le solde a été retiré avec succès");
-            } else {
+
+            if (amount > acc.getBalance()) {
                 System.out.println("Solde insuffisant.");
+            } else if (amount<=0){
+                System.out.println("Vous avez entre un solde Negative !");
+            }else {
+                acc.retirer(amount);
+                System.out.println("Le solde a été retiré avec succès");
             }
         } else {
             System.out.println("Ce compte n'existe pas");
@@ -163,7 +173,7 @@ public class Bank {
             int cd = Input.nextInt();
             Account rvAcc = findAccount(cd);
             if (rvAcc == null){
-                System.out.println("had account mkaynch");
+                System.out.println("Ce compte n'existe pas");
                 return;
             }
 
@@ -189,7 +199,7 @@ public class Bank {
 
 
         }else {
-            System.out.println("had account rah awa mkaynch");
+            System.out.println("Ce compte n'existe pas");
         }
 
     }
