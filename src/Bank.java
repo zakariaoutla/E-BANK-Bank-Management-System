@@ -162,9 +162,17 @@ public class Bank {
             System.out.println("Entre le compte destinataire: ");
             int cd = Input.nextInt();
             Account rvAcc = findAccount(cd);
+            if (rvAcc == null){
+                System.out.println("had account mkaynch");
+                return;
+            }
+
             if(trAcc.getNumberCompte() == rvAcc.getNumberCompte()){
                 System.out.println("Le même compte ne peut pas être envoyé");
+                return;
             }
+
+
             System.out.println("Entre sold: ");
             double trsold = Input.nextDouble();
             if (trsold<=0){
@@ -181,7 +189,7 @@ public class Bank {
 
 
         }else {
-            System.out.println("manjhatch 3amalya");
+            System.out.println("had account rah awa mkaynch");
         }
 
     }
